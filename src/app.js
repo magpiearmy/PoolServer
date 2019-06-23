@@ -1,35 +1,36 @@
-var http = require('http');
-var mysql = require('mysql');
-var express = require('express');
-var bodyParser = require('body-parser');
+const http = require('http');
+const mysql = require('mysql');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-var routing = require('./routing.js');
+const routing = require('./routing.js');
 
-var app = express();
+const app = express();
 app.use(bodyParser.json());
 
-var server = app.listen(8081, '127.0.0.1', function() {
-    var host = server.address().address
-    var port = server.address().port
-    console.log('app listening at http://%s:%s', host, port);
-
-    connectToDatabase(function(db) {
-      routing.setUpRoutes(db, app);
-    });
+connectToDatabase(function (db) {
+	const server = app.listen(8080, '127.0.0.1', function () {
+		const { host, port } = server.address();
+		console.log('app listening at http://%s:%s', host, port);
+	});
+	routing.setUpRoutes(db, app);
 });
 
 function connectToDatabase(onConnect) {
-	
-	var conn = mysql.createConnection({
+	const connection = mysql.createConnection({
 		host: 'localhost',
 		user: 'root',
 		password: 'rootpwd1',
 		database: 'pool'
 	});
 
-	conn.connect(function(err) {
-		if (err) throw err;
-		console.log('Connected to database.');
-		onConnect(conn);
+	connection.connect(function (err) {
+		if (err) {
+			console.error("Could not connect to database", err);
+			process.exitCode = 1;
+		} else {
+			console.log('Connected to database.');
+			onConnect(connection);
+		}
 	});
 }
