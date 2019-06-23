@@ -1,3 +1,5 @@
+CREATE DATABASE pool;
+
 CREATE TABLE `player` (
   `player_id` int(11) NOT NULL AUTO_INCREMENT,
   `player_name` varchar(45) NOT NULL,

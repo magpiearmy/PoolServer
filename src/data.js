@@ -44,9 +44,9 @@ module.exports = function (db) {
     getSinglesMatchesByPlayerId: function (playerId, handleResult) {
       console.log('Attempting to retrieve singles matches for player');
       const query = `select *
-          from team_match_singles_game game, player pl
-          where game.player_id=pl.player_id and pl.player_id=1`;
-      db.query(query, function (err, results) {
+        from team_match_singles_game game, player pl
+        where game.player_id=pl.player_id and pl.player_id=?`;
+      db.query(query, playerId, function (err, results) {
         if (err) {
           console.log('Failed to retrieve matches for player: ' + err);
           throw err;
