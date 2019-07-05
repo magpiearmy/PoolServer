@@ -1,49 +1,41 @@
+const data = require('./data-access.js');
 
-const dataModule = require('./data.js');
+exports.getAllMatches = function (req, res) {
+  data.getAllMatches(function (results, err) {
+    res.send(results);
+  });
+}
 
-module.exports = function (db) {
-  const data = dataModule(db);
-  return {
+exports.getPlayerByName = function (req, res) {
+  const name = req.params.name;
+  data.getPlayerByName(name, function (results, err) {
+    res.send(results);
+  });
+}
 
-    getAllMatches: function (req, res) {
-      data.getAllMatches(function (results, err) {
-        res.send(results);
-      });
-    },
+exports.getAllMatches = function (req, res) {
+  data.getAllMatches(function (results, err) {
+    res.send(results);
+  });
+}
 
-    getPlayerByName: function (req, res) {
-      const name = req.params.name;
-      data.getPlayerByName(name, function (results, err) {
-        res.send(results);
-      });
-    },
+exports.getAllPlayers = function (req, res) {
+  data.getAllPlayers(function (results, err) {
+    if (err) return console.error('Failed to get all players', err);
 
-    getAllMatches: function (req, res) {
-      data.getAllMatches(function (results, err) {
-        res.send(results);
-      });
-    },
+    res.send(results);
+  });
+}
 
-    getAllPlayers: function (req, res) {
-      data.getAllPlayers(function (results, err) {
-        if (err) return console.error('Failed to get all players', err);
+exports.createMatch = function (req, res) {
+  const teamId = req.body.home_team_id;
+  const homeScore = req.body.home_score;
+  const awayScore = req.body.away_score;
+  const games = req.body.games;
 
-        res.send(results);
-      });
-    },
+  data.createNewMatch(teamId, homeScore, awayScore, games, function (err, results) {
+    if (err) return console.error('Failed to create match', err);
 
-    createMatch: function (req, res) {
-
-      const teamId = req.body.home_team_id;
-      const homeScore = req.body.home_score;
-      const awayScore = req.body.away_score;
-      const games = req.body.games;
-
-      data.createNewMatch(teamId, homeScore, awayScore, games, function (err, results) {
-        if (err) return console.error('Failed to create match', err);
-
-        res.status(201).send();
-      });
-    },
-  }
+    res.status(201).send();
+  });
 }
