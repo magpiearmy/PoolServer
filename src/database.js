@@ -23,7 +23,7 @@ exports.getConnection = function () {
 }
 
 const connectToDatabase = function (retries, onConnect) {
-  const connection = mysql.createConnection();
+  const connection = mysql.createConnection(connectionOptions);
 
   console.log('Attempting to connect to database (%s tries remaining)', retries)
 
