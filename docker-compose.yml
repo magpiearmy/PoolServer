@@ -18,6 +18,9 @@ services:
     build: .
     ports:
       - "8082:8082"
+    depends_on: [
+      mysql
+    ]
 
 volumes:
   pool-data:

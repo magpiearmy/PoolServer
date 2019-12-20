@@ -9,7 +9,7 @@ exports.getAllPlayers = function (handleResult) {
     if (err) {
       console.error('Failed to get players');
     } else {
-      console.log('Success! Results: [%s]' + results);
+      console.log('Success! Results: [%s]', results);
       handleResult(results);
     }
   });
@@ -18,7 +18,7 @@ exports.getPlayerByName = function (name, handleResult) {
   const db = database.getConnection();
 
   console.log('Attempting to retrieve player with name: ' + name);
-  const query = 'select * from player where player_name = ?';
+  const query = 'select * from player where player_name = ?'
   db.query(query, name, function (err, results) {
     if (err) {
       console.log('Failed to get player by name: ' + name);
