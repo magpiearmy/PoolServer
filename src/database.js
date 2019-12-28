@@ -2,12 +2,14 @@ const mysql = require('mysql');
 
 const MAX_CONNECT_ATTEMPTS = 5;
 
-const DB_HOST = process.env.DB_HOST || 'mysql'
-const DB_USER = process.env.DB_USER || 'user1'
-const DB_PWD = process.env.DB_PWD || 'userpwd1'
+const DB_HOST = process.env.DB_HOST || 'localhost'
+const DB_NAME = 'pool'
+const DB_USER = process.env.DB_USER || 'root'
+const DB_PWD = process.env.DB_PWD || 'rootpwd1'
+
 const connectionOptions = {
   host: DB_HOST,
-  database: 'pool',
+  database: DB_NAME,
   user: DB_USER,
   password: DB_PWD
 }

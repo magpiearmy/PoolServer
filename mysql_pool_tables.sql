@@ -14,6 +14,7 @@ CREATE TABLE team_match (
   match_id int(11) NOT NULL AUTO_INCREMENT,
   home_team_id int(11) NOT NULL,
   away_team_id int(11) NOT NULL,
+  date date NOT NULL,
   home_score int(11) DEFAULT NULL,
   away_score int(11) DEFAULT NULL,
   PRIMARY KEY (match_id),
